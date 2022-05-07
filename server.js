@@ -1,14 +1,20 @@
 const express = require("express");
-const apiRoutes = require("./routes/apiRoutes");
+const path = require("path");
+const logger = require("./middleware/logger");
+const notes = require("./routes/api/notes");
 const htmlRoutes = require("./routes/htmlRoutes");
 const app = express();
 
-app.use("/api", apiRoutes);
-app.use("/", htmlRoutes);
+app.use(logger);
+app.use(express.json());
 
-let PORT = 3001;
+// api call
+app.use("/api/notes", notes);
+
+// set static folder
+app.use(express.static(path.join(__dirname, "public")));
+
+let PORT = process.env.PORT | 3001;
 
 // Start the server on the port
-app.listen(PORT, () =>
-  console.log(`Listening on PORT: http://Localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
