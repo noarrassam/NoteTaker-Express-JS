@@ -1,6 +1,6 @@
-let noteTitle;
-let noteText;
-let saveNoteBtn;
+let noteTitle = document.getElementById("note-title1");
+let noteText = document.getElementById("note-textarea1");
+let saveNoteBtn = document.getElementById("save-note1");
 let newNoteBtn;
 let noteList;
 
@@ -17,22 +17,33 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
-const getNotes = () =>
+const getNotes = (note) =>
   fetch("/api/notes", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(note),
   });
 
-const saveNote = (note) =>
+function saveNote() {
+  const data = { title: noteTitle.value, text: noteText.value };
   fetch("/api/notes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(note),
-  });
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+saveNoteBtn.addEventListener("click", saveNote);
 
 //Delete Note
 const deleteNote = (id) => ({});
