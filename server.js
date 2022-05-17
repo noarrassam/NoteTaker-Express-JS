@@ -1,15 +1,12 @@
 const express = require("express");
 const logger = require("./middleware/logger");
-const notes = require("./routes/api/notes");
+const notes = require("./routes/api/notes.js");
 const htmlRoutes = require("./routes/htmlRoutes");
 const app = express();
 
 app.use(logger);
 app.use(express.json());
-
 app.use("/", htmlRoutes);
-
-// api call
 app.use("/api/notes", notes);
 
 let PORT = process.env.PORT | 3001;
