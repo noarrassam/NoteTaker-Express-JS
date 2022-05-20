@@ -1,19 +1,19 @@
-const util = require('util');
-const fs = require('fs');
+const util = require("util");
+const fs = require("fs");
 
 // This package will be used to generate our unique ids. https://www.npmjs.com/package/uuid
-const uuidv1 = require('uuid/v1');
+const uuidv1 = require("uuid/v1");
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
 class Store {
   read() {
-    return readFileAsync('db/db.json', 'utf8');
+    return readFileAsync("db/db.json", "utf8");
   }
 
   write(note) {
-    return writeFileAsync('db/db.json', JSON.stringify(note));
+    return writeFileAsync("db/db.json", JSON.stringify(note));
   }
 
   getNotes() {
@@ -23,10 +23,10 @@ class Store {
       // If notes isn't an array or can't be turned into one, send back a new empty array
       try {
         parsedNotes = [].concat(JSON.parse(notes));
+        console.log(parsedNotes);
       } catch (err) {
         parsedNotes = [];
       }
-
       return parsedNotes;
     });
   }
@@ -57,3 +57,4 @@ class Store {
 }
 
 module.exports = new Store();
+//module.exports.getNotes();

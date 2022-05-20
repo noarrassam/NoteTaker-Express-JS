@@ -1,11 +1,18 @@
 const router = require("express").Router();
-const storedData = require("../../db/store");
-const db = require("../../db/db.json");
+var storedData = require("../../db/store");
+var db = require("../../db/db.json");
 
 router
   .route("/")
   .get((req, res) => {
-    res.status(200).json({ success: true, data: storedData.getNotes });
+    if (res) {
+      return res.status(200).json({
+        success: true,
+        data: [...db],
+      });
+    } else {
+      res.status(400).json({ success: false });
+    }
   })
   .post((req, res) => {
     const { title, text } = req.body;
