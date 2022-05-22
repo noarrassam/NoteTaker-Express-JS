@@ -4,11 +4,11 @@ var db = require("../../db/db.json");
 
 router
   .route("/")
-  .get((req, res) => {
+  .get(async (req, res) => {
     if (res) {
       return res.status(200).json({
         success: true,
-        data: [...db],
+        data: await storedData.getNotes(),
       });
     } else {
       res.status(400).json({ success: false });

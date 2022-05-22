@@ -17,4 +17,12 @@ router.get("/index.js", function (req, res) {
   res.sendFile(path.join(__dirname, "../public/assets/js/index.js"));
 });
 
+router.get("/text", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/text.html"));
+});
+
+router.get("/data", function (req, res) {
+  res.sendFile(path.join(__dirname, "../db/store.js"));
+});
+
 module.exports = router;
