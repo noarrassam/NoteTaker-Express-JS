@@ -1,6 +1,6 @@
-let noteTitle = document.getElementById("note-title1");
-let noteText = document.getElementById("note-textarea1");
-let saveNoteBtn = document.getElementById("save-note1");
+let noteTitle = document.getElementById("note-title");
+let noteText = document.getElementById("note-textarea");
+let saveNoteBtn = document.getElementById("save-note");
 let newNoteBtn;
 let noteList = document.getElementById("list-group");
 var text = document.getElementById("textDesc");
@@ -28,27 +28,38 @@ function getNotes() {
     mode: "cors",
     cache: "default",
   });
-  var ul;
+
   fetch(myRequest)
     .then((response) => response.json())
     .then((note) => {
       let { data } = note;
       data.forEach((item, key) => {
         console.log(data);
+
         let textContent = document.createTextNode(item.title);
         let li = document.createElement("li");
         li.setAttribute("id", "liElements");
-        li.appendChild(textContent);
-        ul = document.getElementById("list-group1");
-        if (ul != null) {
-          ul.appendChild(li);
+
+        var deleteBtn = document.createElement("button");
+        deleteBtn.id = item.id;
+        deleteBtn.textContent = "Completed";
+        console.log(deleteBtn.id);
+
+        if (deleteBtn != null) {
+          deleteBtn.addEventListener("click", () => deleteNote(item.id), false);
         }
-        for (let i = 0; i < item.text; i++) {}
+
+        li.appendChild(textContent);
+        if (noteList != null) {
+          noteList.appendChild(li);
+          noteList.appendChild(deleteBtn);
+        }
 
         li.addEventListener("click", function () {
           localStorage.setItem("key", JSON.stringify(item.text));
           location.href = "/text";
         });
+
         if (localStorage.getItem("key") == null) {
           arr = [];
         } else {
@@ -87,10 +98,27 @@ function saveNote(note) {
     });
 }
 
-if (saveNoteBtn) {
+if (saveNoteBtn != null) {
   saveNoteBtn.addEventListener("click", saveNote, false);
 }
-//saveNoteBtn.addEventListener("click", saveNote);
 
-//Delete Note
-const deleteNote = (id) => ({});
+// Delete Note
+function deleteNote(id) {
+  const myRequest = new Request(`/api/notes/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    cache: "default",
+  });
+
+  fetch(myRequest)
+    .then((res) => res.json())
+    .then((message) => {
+      console.log("Success:", message);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
