@@ -4,7 +4,10 @@ let saveNoteBtn = document.getElementById("save-note");
 let newNoteBtn;
 let noteList = document.getElementById("list-group");
 var text = document.getElementById("textDesc");
+var elId = document.getElementById("note-id");
 let arr = [];
+var deleteBtn = document.getElementById("deleteBtn");
+var li = document.getElementById("li");
 
 // Show an element
 const show = (elem) => {
@@ -36,23 +39,16 @@ function getNotes() {
       data.forEach((item, key) => {
         console.log(data);
 
-        let textContent = document.createTextNode(item.title);
-        let li = document.createElement("li");
-        li.setAttribute("id", "liElements");
+        li = document.createElement("li");
+        li.setAttribute("id", "li");
+        newNotes(li, item.title);
 
-        var deleteBtn = document.createElement("button");
-        deleteBtn.id = item.id;
-        deleteBtn.textContent = "Completed";
-        console.log(deleteBtn.id);
+        deleteBtn = document.createElement("button");
+        deleteBtn.setAttribute("id", "deleteBtn");
+        appendDeleteBtn(deleteBtn, item.id);
 
         if (deleteBtn != null) {
           deleteBtn.addEventListener("click", () => deleteNote(item.id), false);
-        }
-
-        li.appendChild(textContent);
-        if (noteList != null) {
-          noteList.appendChild(li);
-          noteList.appendChild(deleteBtn);
         }
 
         li.addEventListener("click", function () {
@@ -80,14 +76,43 @@ function getNotes() {
 
 getNotes();
 
+function newNotes(li, title) {
+  let textContent = document.createTextNode(title);
+  li.setAttribute("id", "liElements");
+  li.appendChild(textContent);
+  if (noteList != null) {
+    noteList.appendChild(li);
+  }
+}
+
+function appendDeleteBtn(deleteBtn, id) {
+  elId = id;
+  deleteBtn.textContent = "Delete";
+  if (noteList != null) {
+    noteList.appendChild(deleteBtn);
+  }
+}
+
+function deletedNote(li, deleteBtn) {
+  hide(li);
+  hide(deleteBtn);
+  //location.reload();
+}
+
 function saveNote(note) {
   note = { title: noteTitle.value, text: noteText.value };
+
+  li = document.createElement("li");
+  deleteBtn = document.createElement("button");
+
   fetch("/api/notes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(note),
+    newNotes: newNotes(li, note.title),
+    delNotes: appendDeleteBtn(deleteBtn, elId),
   })
     .then((response) => response.json())
     .then((note) => {
@@ -111,6 +136,7 @@ function deleteNote(id) {
     },
     mode: "cors",
     cache: "default",
+    delete: deletedNote(li, deleteBtn),
   });
 
   fetch(myRequest)
