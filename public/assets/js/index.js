@@ -40,7 +40,7 @@ function getNotes() {
         console.log(data);
 
         li = document.createElement("li");
-        li.setAttribute("id", "li");
+        li.setAttribute("id", `li-${item.id}`);
         newNotes(li, item.title);
 
         deleteBtn = document.createElement("button");
@@ -48,7 +48,14 @@ function getNotes() {
         appendDeleteBtn(deleteBtn, item.id);
 
         if (deleteBtn != null) {
-          deleteBtn.addEventListener("click", () => deleteNote(item.id), false);
+          deleteBtn.addEventListener(
+            "click",
+            (e) => {
+              console.log(e, e.target);
+              deleteNote(item.id, e.target);
+            },
+            false
+          );
         }
 
         li.addEventListener("click", function () {
@@ -78,7 +85,6 @@ getNotes();
 
 function newNotes(li, title) {
   let textContent = document.createTextNode(title);
-  li.setAttribute("id", "liElements");
   li.appendChild(textContent);
   if (noteList != null) {
     noteList.appendChild(li);
@@ -102,21 +108,28 @@ function deletedNote(li, deleteBtn) {
 function saveNote(note) {
   note = { title: noteTitle.value, text: noteText.value };
 
-  li = document.createElement("li");
-  deleteBtn = document.createElement("button");
-
   fetch("/api/notes", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(note),
-    newNotes: newNotes(li, note.title),
-    delNotes: appendDeleteBtn(deleteBtn, elId),
   })
     .then((response) => response.json())
     .then((note) => {
-      console.log("Success:", note);
+      li = document.createElement("li");
+      li.setAttribute("id", `li-${note.data.id}`);
+      deleteBtn = document.createElement("button");
+      deleteBtn.addEventListener(
+        "click",
+        (e) => {
+          deleteNote(note.data.id, e.target);
+        },
+        false
+      );
+      newNotes(li, note.data.title),
+        appendDeleteBtn(deleteBtn, note.data.id),
+        console.log("Success:", note);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -128,7 +141,7 @@ if (saveNoteBtn != null) {
 }
 
 // Delete Note
-function deleteNote(id) {
+function deleteNote(id, deleteBtn) {
   const myRequest = new Request(`/api/notes/${id}`, {
     method: "DELETE",
     headers: {
@@ -136,12 +149,12 @@ function deleteNote(id) {
     },
     mode: "cors",
     cache: "default",
-    delete: deletedNote(li, deleteBtn),
   });
 
   fetch(myRequest)
     .then((res) => res.json())
     .then((message) => {
+      deletedNote(document.getElementById(`li-${id}`), deleteBtn);
       console.log("Success:", message);
     })
     .catch((error) => {

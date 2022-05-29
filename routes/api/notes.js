@@ -14,7 +14,7 @@ router
       res.status(400).json({ success: false });
     }
   })
-  .post((req, res) => {
+  .post(async (req, res) => {
     const { title, text } = req.body;
     if (!title && !text) {
       return res
@@ -22,7 +22,7 @@ router
         .json({ success: false, msg: "Please Provide Title and Text Values" });
     }
 
-    res.status(201).json({ success: true, data: storedData.addNote(req.body) });
+    res.status(201).json({ success: true, data: await storedData.addNote(req.body) });
   });
 
 router.delete("/:id", (req, res) => {
