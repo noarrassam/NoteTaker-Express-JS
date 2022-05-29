@@ -1,6 +1,6 @@
 # Name: Noar Rassam
 
-# Coding Assessment Project
+# Note Taker Project
 
 ## Description
 
