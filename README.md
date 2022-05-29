@@ -22,27 +22,15 @@ It is a Full Stack Project that uses Node JS and Express JS in the backend to JS
 
 - CRUD
 
-## **Start Assessment**
+## **Index Page**
 
-![![Start]()](https://github.com/noarrassam/CodingAssessment/blob/master/images/1.png)
-![![Start]()](https://github.com/noarrassam/CodingAssessment/blob/master/images/7.png)
+![![Start]()](https://github.com/noarrassam/NoteTaker-Express-JS/blob/main/images/1.png)
 
-## **MCQs**
+## **Notes Page**
 
-![![MCQs]()](https://github.com/noarrassam/CodingAssessment/blob/master/images/2.png)
-
-## **Wrong Answer Alert**
-
-![![Score]()](https://github.com/noarrassam/CodingAssessment/blob/master/images/3.png)
-
-## **Correct Answer Alert**
-
-![![Portfolio]()](https://github.com/noarrassam/CodingAssessment/blob/master/images/4.png)
-
-## **Alert Message**
-
-![![Portfolio]()](https://github.com/noarrassam/CodingAssessment/blob/master/images/6.png)
-
-## **Final Score**
-
-![![Portfolio]()](https://github.com/noarrassam/CodingAssessment/blob/master/images/5.png)
+![![Notes]()](https://github.com/noarrassam/NoteTaker-Express-JS/blob/main/images/2.png)
+![![Notes]()](https://github.com/noarrassam/NoteTaker-Express-JS/blob/main/images/3.png)
+![![Notes]()](https://github.com/noarrassam/NoteTaker-Express-JS/blob/main/images/4.png)
+![![Notes]()](https://github.com/noarrassam/NoteTaker-Express-JS/blob/main/images/5.png)
+![![Notes]()](https://github.com/noarrassam/NoteTaker-Express-JS/blob/main/images/6.png)
+![![Notes]()](https://github.com/noarrassam/NoteTaker-Express-JS/blob/main/images/7.png)
