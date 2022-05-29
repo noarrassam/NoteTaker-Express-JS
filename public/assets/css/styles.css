@@ -71,3 +71,40 @@ body {
   padding: 20px;
   cursor: pointer;
 }
+
+.list-group {
+  background-color: rgb(193, 185, 185);
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: large;
+  text-transform: uppercase;
+}
+
+/* #li {
+  list-style: none;
+  background-color: green;
+  list-style-position: inside;
+  border: 1px solid black;
+  margin: 5px 0;
+  width: 60%;
+  position: relative;
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73ad21;
+  padding: 10px;
+  text-transform: uppercase;
+} */
+
+/* #deleteBtn {
+  list-style: none;
+  background-color: green;
+  list-style-position: inside;
+  border: 1px solid black;
+  margin: 5px 0;
+  width: 60%;
+  position: relative;
+  margin: auto;
+  width: 60%;
+  border: 3px solid #73ad21;
+  padding: 10px;
+} */

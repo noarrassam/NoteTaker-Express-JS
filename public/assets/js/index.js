@@ -1,7 +1,7 @@
 let noteTitle = document.getElementById("note-title");
 let noteText = document.getElementById("note-textarea");
 let saveNoteBtn = document.getElementById("save-note");
-let newNoteBtn;
+let newNoteBtn = document.getElementById("new-note");
 let noteList = document.getElementById("list-group");
 var text = document.getElementById("textDesc");
 var elId = document.getElementById("note-id");
@@ -36,6 +36,13 @@ function getNotes() {
     .then((response) => response.json())
     .then((note) => {
       let { data } = note;
+
+      if (newNoteBtn != null) {
+        newNoteBtn.addEventListener("click", function () {
+          location.href = "/notes";
+        });
+      }
+
       data.forEach((item, key) => {
         console.log(data);
 
@@ -102,7 +109,6 @@ function appendDeleteBtn(deleteBtn, id) {
 function deletedNote(li, deleteBtn) {
   hide(li);
   hide(deleteBtn);
-  //location.reload();
 }
 
 function saveNote(note) {
@@ -119,6 +125,21 @@ function saveNote(note) {
     .then((note) => {
       li = document.createElement("li");
       li.setAttribute("id", `li-${note.data.id}`);
+
+      li.addEventListener("click", function () {
+        localStorage.setItem("key", JSON.stringify(note.data.text));
+        location.href = "/text";
+      });
+
+      if (localStorage.getItem("key") == null) {
+        arr = [];
+      } else {
+        arr = JSON.parse(localStorage.getItem("key"));
+        if (text != null) {
+          text.innerHTML = arr;
+        }
+      }
+
       deleteBtn = document.createElement("button");
       deleteBtn.addEventListener(
         "click",
