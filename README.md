@@ -4,7 +4,7 @@
 
 ## Description
 
-It is a Full Stack Project that uses Node JS and Express JS in the backend to JS in the Front-End to save notes using the CRUD operations, such as GET, POST, and DELETE methods, between the server side and client side, viewing a note detail into another page can be viewed using local storage.
+It is a FullStack Project that uses Node JS and Express JS in the backend to JS in the Front-End to save notes into JSON file using the CRUD operations, such as GET, POST, and DELETE methods between the server side and client side, also its using LocalStorage to view a note detail into another page.
 
 ## Used
 
